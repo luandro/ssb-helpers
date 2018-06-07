@@ -1,0 +1,32 @@
+{
+  "name": "ssb-helpers",
+  "version": "0.0.1",
+  "description": "Some helper functions for common Secure Scuttlebot actions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luandro/ssb-helpers.git"
+  },
+  "keywords": [
+    "SSB",
+    "secure",
+    "scuttlebot",
+    "decentralized",
+    "graphql",
+    "open",
+    "app"
+  ],
+  "author": "Luandro <luandro@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luandro/ssb-helpers/issues"
+  },
+  "homepage": "https://github.com/luandro/ssb-helpers#readme",
+  "dependencies": {
+    "pull-stream": "^3.6.8",
+    "ssb-ref": "^2.11.1"
+  }
+}
