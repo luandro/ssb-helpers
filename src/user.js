@@ -11,10 +11,16 @@ const getProfile = async ({ id }, sbot) => {
     const profile = Object.keys(msgs)
       .map((key) => msgs[key])
       .reduce((profile, msg) => ({ ...profile, ...msg.value.content }), {})
-    const imgBlob = await getBlob(sbot, profile.image)
-    const blobJson = JSON.stringify(imgBlob)
-    return { id, ...profile, imageBlob: blobJson }
+    let blobJson = null
+    if (profile.image) {
+      const imgBlob = await getBlob(sbot, profile.image)
+      blobJson = JSON.stringify(imgBlob)
+
+    }
+    const res = { id, ...profile, imageBlob: blobJson }
+    return res
   } catch (err) {
+    console.log('Error on getProfile', err)
     return { id, name: id }
   }
 }
