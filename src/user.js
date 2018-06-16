@@ -8,16 +8,15 @@ const getAbout = async ({ id }, sbot) => {
   try {
     const sourceId = await getId(sbot)
     const destId = id || sourceId
-    const msgs = await getLinks({ source: sourceId, dest: destId, rel: 'about' }, sbot)
+    const msgs = await getLinks({ source: destId, dest: destId, rel: 'about' }, sbot)
     const profile = Object.keys(msgs)
       .map((key) => msgs[key])
       .reduce((profile, msg) => ({ ...profile, ...msg.value.content }), {})
     const res = { id: destId, ...profile }
-    console.log(res)
     return res
   } catch (err) {
     const targetId = id || sourceId
-    console.log('Error on getProfile', err)
+    console.log('Error on getAbout', err)
     return { id: targetId, name: targetId }
   }
 }
