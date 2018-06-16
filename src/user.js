@@ -1,27 +1,24 @@
 const { getLinks } = require('./messages')
-const { getBlob } = require('./blobs')
 
 const getId = (sbot) => new Promise((resolve, reject) => {
   sbot.whoami((err, info) => { if (err) { reject(err) } resolve(info.id) })
 })
 
-const getProfile = async ({ id }, sbot) => {
+const getAbout = async ({ id }, sbot) => {
   try {
-    const msgs = await getLinks({ source: id, dest: id, rel: 'about' }, sbot)
+    const sourceId = await getId(sbot)
+    const destId = id || sourceId
+    const msgs = await getLinks({ source: sourceId, dest: destId, rel: 'about' }, sbot)
     const profile = Object.keys(msgs)
       .map((key) => msgs[key])
       .reduce((profile, msg) => ({ ...profile, ...msg.value.content }), {})
-    let blobJson = null
-    if (profile.image) {
-      const imgBlob = await getBlob(sbot, profile.image)
-      blobJson = JSON.stringify(imgBlob)
-
-    }
-    const res = { id, ...profile, imageBlob: blobJson }
+    const res = { id: destId, ...profile }
+    console.log(res)
     return res
   } catch (err) {
+    const targetId = id || sourceId
     console.log('Error on getProfile', err)
-    return { id, name: id }
+    return { id: targetId, name: targetId }
   }
 }
 
@@ -38,6 +35,6 @@ const getChannels = async ({ id }, sbot) => {
 
 module.exports = {
   getId,
-  getProfile,
+  getAbout,
   getChannels,
 }
