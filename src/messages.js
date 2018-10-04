@@ -9,6 +9,13 @@ const getHistory = ({ id, sequence = 0 }, sbot) => new Promise((resolve, reject)
   )
 })
 
+const getMessagesByType = ({ type }, sbot) => new Promise((resolve, reject) => {
+  pull(
+    sbot.messagesByType({ type }),
+    pull.collect((err, msgs) => { if (err) { reject(err) } resolve(msgs) }),
+  )
+})
+
 const getHistoryStream = ({ id, sequence = 0 }, sbot, pubsub, channel) => {
   if (!ref.isFeedId(id)) { reject(console.log(`${id} is not a valid feed ID`)) }
   console.log('Starting', sbot.createHistoryStream)
@@ -40,6 +47,7 @@ const getLinks = ({ source, dest, rel }, sbot) => new Promise((resolve, reject) 
 
 module.exports = {
   getHistory,
+  getMessagesByType,
   getHistoryStream,
   publishMessage,
   getLinks,
