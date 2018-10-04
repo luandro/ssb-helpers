@@ -4,8 +4,7 @@
   "description": "Some helper functions for common Secure Scuttlebot actions.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -29,10 +28,5 @@
   "dependencies": {
     "pull-stream": "^3.6.8",
     "ssb-ref": "^2.11.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-latest": "^6.24.1"
   }
 }

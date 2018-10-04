@@ -11,8 +11,8 @@ const getAbout = async ({ id }, sbot) => {
     const msgs = await getLinks({ source: destId, dest: destId, rel: 'about' }, sbot)
     const profile = Object.keys(msgs)
       .map((key) => msgs[key])
-      .reduce((profile, msg) => ({ ...profile, ...msg.value.content }), {})
-    const res = { id: destId, ...profile }
+      .reduce((profile, msg) => (Object.assign(profile, msg.value.content), {}))
+    const res = { id: destId, profile }
     return res
   } catch (err) {
     const targetId = id || sourceId
@@ -28,7 +28,7 @@ const getChannels = async ({ id }, sbot) => {
     .filter((msg) => msg.value.content.type === 'channel')
     .reduce((channels, msg) => {
       const { channel, subscribed } = msg.value.content;
-      return [...channels, { name: channel, subscribed }];
+      return [channels, { name: channel, subscribed }];
     }, []);
 };
 

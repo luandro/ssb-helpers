@@ -1,9 +1,9 @@
-const { getId, getAbout } = require('./lib/user')
-const { getBlob } = require('./lib/blobs')
-const { getConnectedPeers } = require('./lib/gossip')
-const { getProgress } = require('./lib/replication')
-const { getHistory, getHistoryStream } = require('./lib/replication')
-const { publishMessage, getLinks, getMessagesByType, get } = require('./lib/messages')
+const { getId, getAbout } = require('./src/user')
+const { getBlob } = require('./src/blobs')
+const { getConnectedPeers } = require('./src/gossip')
+const { getProgress } = require('./src/replication')
+const { getHistory, getHistoryStream } = require('./src/replication')
+const { publishMessage, getLinks, getMessagesByType, get } = require('./src/messages')
 
 module.exports = {
   get,
