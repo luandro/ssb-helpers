@@ -1,6 +1,13 @@
 const pull = require('pull-stream')
 const ref = require('ssb-ref')
 
+const get = ({ msgid }, sbot) =>  new Promise((resolve, reject) => {
+  pull(
+    sbot.get({ msgid }),
+    pull.collect((err, msgs) => { if (err) { reject(err) } resolve(msgs) }),
+  )
+})
+
 const getHistory = ({ id, sequence = 0 }, sbot) => new Promise((resolve, reject) => {
   if (!ref.isFeedId(id)) { reject(console.log(`${id} is not a valid feed ID`)) }
   pull(
@@ -50,5 +57,6 @@ module.exports = {
   getMessagesByType,
   getHistoryStream,
   publishMessage,
+  get,
   getLinks,
 }
