@@ -1,20 +1,29 @@
-const { getId, getAbout } = require('./src/user')
-const { getBlob } = require('./src/blobs')
-const { getConnectedPeers } = require('./src/gossip')
-const { getProgress } = require('./src/replication')
-const { getHistory, getHistoryStream } = require('./src/replication')
-const { publishMessage, getLinks, getMessagesByType, get } = require('./src/messages')
+const { whoami, getAbout, getChannels } = require('./src/user')
+const { blob, blobsList, blobRemove, blobChanges } = require('./src/blobs')
+const { unbox, publishPrivate } = require('./src/private')
+const { gossip, peers } = require('./src/gossip')
+const { replication } = require('./src/replication')
+const { publish, links, messagesByType, message, feed, log, getHistory, history } = require('./src/messages')
 
 module.exports = {
-  get,
-  getId,
+  whoami,
+  message,
+  unbox,
+  publishPrivate,
+  messagesByType,
+  feed,
+  log,
+  links,
   getAbout,
-  getBlob,
-  getConnectedPeers,
-  getProgress,
+  getChannels,
+  blob,
+  blobsList,
+  blobRemove,
+  blobChanges,
+  peers,
+  gossip,
+  replication,
   getHistory,
-  getMessagesByType,
-  getHistoryStream,
-  getLinks,
-  publishMessage,
+  history,
+  publish,
 }

@@ -1,12 +1,13 @@
 const { getLinks } = require('./messages')
 
-const getId = (sbot) => new Promise((resolve, reject) => {
+const whoami = (sbot) => new Promise((resolve, reject) => {
   sbot.whoami((err, info) => { if (err) { reject(err) } resolve(info.id) })
 })
 
+// BAD HACK: should use ssb-about plugin
 const getAbout = async ({ id }, sbot) => {
   try {
-    const sourceId = await getId(sbot)
+    const sourceId = await whoami(sbot)
     const destId = id || sourceId
     const msgs = await getLinks({ source: destId, dest: destId, rel: 'about' }, sbot)
     const profile = Object.keys(msgs)
@@ -21,6 +22,7 @@ const getAbout = async ({ id }, sbot) => {
   }
 }
 
+// BAD HACK: should use ssb-query plugin
 const getChannels = async ({ id }, sbot) => {
   const msgs = await getHistory({ id }, sbot);
   return Object.keys(msgs)
@@ -33,7 +35,7 @@ const getChannels = async ({ id }, sbot) => {
 };
 
 module.exports = {
-  getId,
+  whoami,
   getAbout,
   getChannels,
 }

@@ -1,15 +1,15 @@
 const pull = require('pull-stream')
 
-const getProgress = (sbot, pubsub, channel) => {
-  if (!sbot) {
-    console.log('ERROR! Pass sbot to the function')
+const replication = (sbot, pubsub, channel) => {
+  if (!sbot || !pubsub || !channel) {
+    console.log('ERROR! Pass sbot, pubsub and channel to the function')
   }
   pull(
     sbot.replicate.changes(),
-    pull.drain(progress => pubsub.publish(channel, { progress }))
+    pull.drain(replication => pubsub.publish(channel, { replication }))
   )
 }
 
 module.exports = {
-  getProgress,
+  replication,
 }

@@ -1,8 +1,14 @@
 const pull = require('pull-stream')
 
-const getConnectedPeers = (sbot, pubsub, channel, connected) => {
-  if (!sbot) {
-    console.log('ERROR! Pass sbot to the function')
+const peers = (sbot) => {
+  const res = sbot.gossip.peers()
+  console.log(res)
+  return res
+}
+
+const gossip = (sbot, pubsub, channel, connected) => {
+  if (!sbot || !pubsub || !channel) {
+    console.log('ERROR! Pass sbot, pubsub and channel to the function')
   }
   return pull(
     sbot.gossip.changes(),
@@ -19,6 +25,7 @@ const getConnectedPeers = (sbot, pubsub, channel, connected) => {
 }
 
 module.exports = {
-  getConnectedPeers,
+  peers,
+  gossip,
 }
 
