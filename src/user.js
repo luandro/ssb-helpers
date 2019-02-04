@@ -4,22 +4,14 @@ const whoami = (sbot) => new Promise((resolve, reject) => {
   sbot.whoami((err, info) => { if (err) { reject(err) } resolve(info.id) })
 })
 
-// BAD HACK: should use ssb-about plugin
 const getAbout = async ({ id }, sbot) => {
-  try {
-    const sourceId = await whoami(sbot)
-    const destId = id || sourceId
-    const msgs = await getLinks({ source: destId, dest: destId, rel: 'about' }, sbot)
-    const profile = Object.keys(msgs)
-      .map((key) => msgs[key])
-      .reduce((about, msg) => Object.assign(about, msg.value.content))
-    const res = profile
-    return res
-  } catch (err) {
-    const targetId = id || sourceId
-    console.log('Error on getAbout', err)
-    return { id: targetId, name: targetId }
-  }
+  const dest = id || await whoami(sbot)
+  keys = ['name', 'image', 'location']
+  return new Promise((resolve, reject) => {
+    sbot.about.latestValues({ keys, dest }, (err, values) => {
+      resolve(Object.assign({key: dest}, values))
+    })
+  })
 }
 
 // BAD HACK: should use ssb-query plugin
