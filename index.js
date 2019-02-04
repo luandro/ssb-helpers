@@ -3,13 +3,14 @@ const { blob, blobsList, blobRemove, blobChanges } = require('./src/blobs')
 const { unbox, publishPrivate } = require('./src/private')
 const { gossip, peers } = require('./src/gossip')
 const { replication } = require('./src/replication')
-const { publish, links, messagesByType, message, feed, log, getHistory, history } = require('./src/messages')
+const { publish, links, getMessagesByType, messagesByType, message, feed, log, getHistory, history } = require('./src/messages')
 
 module.exports = {
   whoami,
   message,
   unbox,
   publishPrivate,
+  getMessagesByType,
   messagesByType,
   feed,
   log,

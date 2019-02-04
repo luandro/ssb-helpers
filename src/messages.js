@@ -37,6 +37,13 @@ const messagesByType = ({ type }, sbot, pubsub, channel) => {
   )
 }
 
+const getMessagesByType = ({ type }, sbot) => new Promise((resolve, reject) => {
+  pull(
+    sbot.messagesByType({ type }),
+    pull.collect((err, msgs) => { if (err) { reject(err) } resolve(msgs) })
+  )
+})
+
 const feed = (sbot, pubsub, channel) => {
   if (!sbot || !pubsub || !channel) {
     console.log('ERROR! Pass sbot, pubsub and channel to the function')
@@ -84,6 +91,7 @@ const links = ({ source, dest, rel }, sbot) => new Promise((resolve, reject) => 
 })
 
 module.exports = {
+  getMessagesByType,
   messagesByType,
   publish,
   message,
