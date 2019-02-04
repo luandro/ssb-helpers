@@ -1,6 +1,6 @@
 {
   "name": "ssb-helpers",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Some helper functions for common Secure Scuttlebot actions.",
   "main": "index.js",
   "scripts": {
